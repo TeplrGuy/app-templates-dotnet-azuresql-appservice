@@ -1,2 +1,6 @@
 .azure/
+<<<<<<< Updated upstream
 /.vs
+=======
+.vs
+>>>>>>> Stashed changes
