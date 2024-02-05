@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
     public class IndexModel : PageModel
     {
         private readonly IHttpClientFactory client;
+        string URLAPI = Environment.GetEnvironmentVariable("URLAPI");
+       
 
         public IndexModel(IHttpClientFactory client)
         {
@@ -20,8 +23,8 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
         {
              using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetStringAsync(client.CreateClient().BaseAddress+"/api/Departments");
-                   Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(response);
+                var response = await httpClient.GetStringAsync(URLAPI+"/api/Departments");
+                Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(response);
             }
         }
     }
