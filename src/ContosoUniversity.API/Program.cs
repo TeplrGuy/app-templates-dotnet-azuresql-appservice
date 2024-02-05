@@ -27,6 +27,7 @@ builder.Services.AddDbContext<ContosoUniversityAPIContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
+builder.Services.AddServiceProfiler(builder.Configuration);
 
 var app = builder.Build();
 
