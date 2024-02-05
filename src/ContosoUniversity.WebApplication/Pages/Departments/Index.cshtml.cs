@@ -18,8 +18,11 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
 
         public async Task OnGetAsync()
         {
-            var response = await client.CreateClient("client").GetStringAsync("api/Departments");
-            Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(response);
+             using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetStringAsync(client.CreateClient().BaseAddress+"/api/Departments");
+                   Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(response);
+            }
         }
     }
 }
