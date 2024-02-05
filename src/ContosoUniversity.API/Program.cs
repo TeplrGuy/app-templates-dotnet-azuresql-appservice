@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.ApplicationInsights.Extensibility;
+
 
 
 
@@ -31,12 +31,10 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
 builder.Services.AddServiceProfiler(builder.Configuration);
 
-// Get the TelemetryConfiguration instance and enable SQL command text instrumentation
-var telemetryConfiguration = TelemetryConfiguration.CreateDefault();
-telemetryConfiguration.EnableSqlCommandTextInstrumentation = true;
-
-// Set the telemetry configuration for Application Insights
-builder.Services.AddSingleton(telemetryConfiguration);
+builder.Services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, options) =>
+{
+    module.EnableSqlCommandTextInstrumentation = true;
+});
 
 var app = builder.Build();
 
