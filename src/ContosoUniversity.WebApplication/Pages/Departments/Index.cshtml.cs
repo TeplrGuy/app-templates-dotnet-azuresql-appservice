@@ -9,6 +9,7 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
     public class IndexModel : PageModel
     {
         private readonly IHttpClientFactory client;
+        private static readonly HttpClient httpClient = new HttpClient();  
         string URLAPI = Environment.GetEnvironmentVariable("URLAPI");
        
 
@@ -21,11 +22,9 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
 
         public async Task OnGetAsync()
         {
-             using (var httpClient = new HttpClient())
-            {
                 var response = await httpClient.GetStringAsync(URLAPI+"/api/Departments");
                 Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(response);
-            }
+            
         }
     }
 }
