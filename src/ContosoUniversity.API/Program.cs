@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+    
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = "";
@@ -29,6 +30,13 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
 builder.Services.AddServiceProfiler(builder.Configuration);
 
+// Get the TelemetryConfiguration instance and enable SQL command text instrumentation
+var telemetryConfiguration = TelemetryConfiguration.CreateDefault();
+telemetryConfiguration.EnableSqlCommandTextInstrumentation = true;
+
+// Set the telemetry configuration for Application Insights
+builder.Services.AddSingleton(telemetryConfiguration);
+
 var app = builder.Build();
 
 await using (var scope = app.Services.CreateAsyncScope())
@@ -36,6 +44,7 @@ await using (var scope = app.Services.CreateAsyncScope())
     var db = scope.ServiceProvider.GetRequiredService<ContosoUniversityAPIContext>();
     await DbInitializer.Initialize(db);
 }
+
 
 //if (env.IsDevelopment())
 //{
