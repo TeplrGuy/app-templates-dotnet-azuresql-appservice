@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\ContosoUniversity.API",
+    "\\src\\ContosoUniversity.API\\Data",
+    "\\src\\ContosoUniversity.WebApplication",
+    "\\src\\ContosoUniversity.WebApplication\\wwwroot",
+    "\\src\\ContosoUniversity.WebApplication\\wwwroot\\js"
+  ],
+  "SelectedNode": "\\src\\ContosoUniversity.API\\Data\\DbInitializer.cs",
+  "PreviewInSolutionExplorer": false
+}

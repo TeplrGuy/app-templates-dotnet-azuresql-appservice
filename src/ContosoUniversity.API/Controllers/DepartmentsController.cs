@@ -89,6 +89,10 @@ namespace ContosoUniversity.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDepartment([FromRoute] int id, [FromBody] Department department)
         {
+            // add a code that causes deadlock
+            department = await _context.Departments.FindAsync(id);
+            
+                
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

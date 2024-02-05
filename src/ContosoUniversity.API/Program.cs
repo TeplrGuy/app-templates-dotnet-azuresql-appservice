@@ -5,10 +5,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Net;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = "";
+ServicePointManager.DefaultConnectionLimit = 2; // Controlling concurrency
 if (builder.Configuration["AZURE_KEY_VAULT_ENDPOINT"] != null)
 {
     var credential = new DefaultAzureCredential();
@@ -25,8 +29,11 @@ builder.Services.AddDbContext<ContosoUniversityAPIContext>(options =>
     options.UseSqlServer(connectionString, sqlOptions => sqlOptions.EnableRetryOnFailure());
 });
 
+
 builder.Services.AddControllers();
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
+
+
 
 var app = builder.Build();
 
