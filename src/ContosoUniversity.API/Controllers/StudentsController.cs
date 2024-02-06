@@ -13,6 +13,9 @@ namespace ContosoUniversity.API.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly ContosoUniversityAPIContext _context;
+        
+        // Static variable to store user list and simulate memory growth
+        private static List<DTO.Student> userList = new List<DTO.Student>();
 
 
         public StudentsController(ContosoUniversityAPIContext context)
@@ -58,6 +61,9 @@ namespace ContosoUniversity.API.Controllers
                 CurrentPage = pageNumber + 1
             };
 
+            // Append the result to the static list
+            userList.AddRange(result.Students);
+
             return Ok(result);
             
         }
@@ -70,30 +76,14 @@ namespace ContosoUniversity.API.Controllers
             {
                 return BadRequest(ModelState);
             }
- 
-            var students = await Task.Run(() =>
-            {
-                // Simulate high CPU usage within LINQ query
-                var query = _context.Student
-                    .Include(s => s.StudentCourse)
-                    .ThenInclude(s => s.Course)
-                    .AsNoTracking()
-                    .Where(s => EF.Functions.Like(s.FirstName, name + "%") || EF.Functions.Like(s.LastName, name + "%"));
 
-                // Artificially inflate computational complexity
-                foreach (var student in query)
-                {
-                    // Introduce CPU-intensive operation
-                    for (int i = 0; i < 1000000; i++)
-                    {
-                        string result = new string('a', 10000); // Creating a large string
-                    }
-                }
-
-                // Execute the query and return the result
-                return query.ToList();
-             });
-
+            var students = await _context.Student
+                .Include(s => s.StudentCourse)
+                .ThenInclude(s => s.Course)
+                .AsNoTracking()
+                .Where(s => EF.Functions.Like(s.FirstName, name+"%") || EF.Functions.Like(s.LastName, name + "%"))
+                .ToListAsync();
+            
             if (students == null)
             {
                 return NotFound();
@@ -117,6 +107,7 @@ namespace ContosoUniversity.API.Controllers
                 }).ToList()
             };
 
+            userList.AddRange(result.Students);
             return Ok(result);
         }
 
