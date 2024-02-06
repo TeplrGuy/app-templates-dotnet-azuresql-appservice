@@ -28,8 +28,8 @@ namespace ContosoUniversity.API.Controllers
         {
             var students = _context.Student
                 .Include(s => s.StudentCourse)
-                .ThenInclude(s => s.Course)
-                .AsNoTracking();
+                .ThenInclude(s => s.Course);
+                //.AsNoTracking();
 
             int pageNumber = page.HasValue && page.Value > 0 ? page.Value - 1 : 0; // 0-index
             int pageSize = 50;
@@ -79,7 +79,7 @@ namespace ContosoUniversity.API.Controllers
             var students = await _context.Student
                 .Include(s => s.StudentCourse)
                 .ThenInclude(s => s.Course)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .Where(s => EF.Functions.Like(s.FirstName, name+"%") || EF.Functions.Like(s.LastName, name + "%"))
                 .ToListAsync();
             
@@ -121,7 +121,7 @@ namespace ContosoUniversity.API.Controllers
             var student = await _context.Student
                 .Include(s => s.StudentCourse)
                 .ThenInclude(s => s.Course)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (student == null)
