@@ -1,9 +1,10 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ContosoUniversity.API.Data;
 using ContosoUniversity.API.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace ContosoUniversity.API.Controllers
 {
@@ -13,6 +14,8 @@ namespace ContosoUniversity.API.Controllers
     {
         private readonly ContosoUniversityAPIContext _context;
 
+        // Static variable to store user list and simulate memory growth
+        private static List<DTO.Department> departmentList = new List<DTO.Department>();
         public DepartmentsController(ContosoUniversityAPIContext context)
         {
             _context = context;
@@ -44,6 +47,7 @@ namespace ContosoUniversity.API.Controllers
                 }).ToList()
             };
 
+            departmentList.AddRange(result.Departments);
             return Ok(result);
         }
 
@@ -82,6 +86,7 @@ namespace ContosoUniversity.API.Controllers
                 }
             };
 
+             departmentList.Add(result);
             return Ok(result);
         }
 
