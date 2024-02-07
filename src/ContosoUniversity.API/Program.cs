@@ -6,10 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.ApplicationInsights.DependencyCollector;
+using Microsoft.ApplicationInsights.Extensibility;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<ITelemetryInitializer, MyTelemetryInitializer>();
 var connectionString = "";
 if (builder.Configuration["AZURE_KEY_VAULT_ENDPOINT"] != null)
 {
