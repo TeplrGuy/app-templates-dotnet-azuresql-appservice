@@ -44,8 +44,6 @@ namespace ContosoUniversity.API.Controllers
                     }
                 }).ToList()
             };
-
-            departmentList.AddRange(result.Departments);
             return Ok(result);
         }
 
