@@ -14,8 +14,6 @@ namespace ContosoUniversity.API.Controllers
     {
         private readonly ContosoUniversityAPIContext _context;
 
-        // Static variable to store user list and simulate memory growth
-        private static List<DTO.Department> departmentList = new List<DTO.Department>();
         public DepartmentsController(ContosoUniversityAPIContext context)
         {
             _context = context;
@@ -86,7 +84,6 @@ namespace ContosoUniversity.API.Controllers
                 }
             };
 
-             departmentList.Add(result);
             return Ok(result);
         }
 
