@@ -13,10 +13,6 @@ namespace ContosoUniversity.API.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly ContosoUniversityAPIContext _context;
-        
-        // Static variable to store user list and simulate memory growth
-        private static List<DTO.Student> userList = new List<DTO.Student>();
-
 
         public StudentsController(ContosoUniversityAPIContext context)
         {
@@ -61,9 +57,6 @@ namespace ContosoUniversity.API.Controllers
                 CurrentPage = pageNumber + 1
             };
 
-            // Append the result to the static list
-            userList.AddRange(result.Students);
-
             return Ok(result);
             
         }
@@ -107,7 +100,6 @@ namespace ContosoUniversity.API.Controllers
                 }).ToList()
             };
 
-            userList.AddRange(result.Students);
             return Ok(result);
         }
 
