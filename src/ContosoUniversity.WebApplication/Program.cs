@@ -114,4 +114,4 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-await app.RunAsync(); // Use asynchronous RunAsync() method
+app.Run(); // Use asynchronous RunAsync() method
