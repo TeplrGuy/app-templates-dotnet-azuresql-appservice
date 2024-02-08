@@ -21,14 +21,14 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
 
         public Models.APIViewModels.DepartmentResult Department { get; set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
             var request = HttpWebRequest.Create(URLAPI + "/api/Departments");
             var response = request.GetResponse();
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
-                var responseContent = await streamReader.ReadToEndAsync();
-                Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(responseContent);
+                var responseContent = streamReader.Read();
+                Department = JsonConvert.DeserializeObject<Models.APIViewModels.DepartmentResult>(responseContent.ToString());
             }
         }
     }
