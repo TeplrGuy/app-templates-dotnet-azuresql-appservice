@@ -24,7 +24,7 @@ namespace ContosoUniversity.WebApplication.Pages.Departments
         public async Task OnGetAsync()
         {
             var request = HttpWebRequest.Create(URLAPI + "/api/Departments");
-            var response = await request.GetResponseAsync();
+            var response = request.GetResponse();
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 var responseContent = await streamReader.ReadToEndAsync();
