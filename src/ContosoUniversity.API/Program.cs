@@ -67,4 +67,4 @@ app.UseEndpoints(endpoints =>
 app.UseOpenApi();
 app.UseSwaggerUi3();
 
-app.Run();
+await app.RunAsync();
