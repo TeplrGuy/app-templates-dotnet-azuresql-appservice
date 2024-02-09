@@ -90,8 +90,10 @@ namespace ContosoUniversity.API.Controllers
                     }
                 }
 
+                 // Materialize the query to a list to execute it
+               var result = query.ToList();
                 // Execute the query and return the result
-                return query.ToList();
+                return result;
              });
 
             if (students == null)
