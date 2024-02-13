@@ -9,15 +9,15 @@ param keyVaultName string = ''
 param managedIdentity bool = !empty(keyVaultName)
 
 // Runtime Properties
-@allowed([
-  'dotnet', 'dotnetcore', 'dotnet-isolated', 'node', 'python', 'java', 'powershell', 'custom'
-])
+//@allowed([
+ // 'dotnet', 'dotnetcore', 'dotnet-isolated', 'node', 'python', 'java', 'powershell', 'custom'
+//])
 param runtimeName string
 param runtimeNameAndVersion string = '${runtimeName}|${runtimeVersion}'
 param runtimeVersion string
 
 // Microsoft.Web/sites Properties
-param kind string = 'app,windows'
+param kind string = 'app,linux'
 
 // Microsoft.Web/sites/config
 param allowedOrigins array = []
@@ -27,6 +27,7 @@ param appSettings object = {}
 param clientAffinityEnabled bool = false
 param enableOryxBuild bool = contains(kind, 'linux')
 param functionAppScaleLimit int = -1
+param linuxFxVersion string = runtimeNameAndVersion
 param windowsFxVersion string = runtimeNameAndVersion
 param minimumElasticInstanceCount int = -1
 param numberOfWorkers int = -1
