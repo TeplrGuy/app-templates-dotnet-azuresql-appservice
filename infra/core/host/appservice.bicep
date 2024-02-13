@@ -17,7 +17,7 @@ param runtimeNameAndVersion string = '${runtimeName}|${runtimeVersion}'
 param runtimeVersion string
 
 // Microsoft.Web/sites Properties
-param kind string = 'app,linux'
+param kind string = 'app,windows'
 
 // Microsoft.Web/sites/config
 param allowedOrigins array = []
@@ -44,7 +44,7 @@ resource appService 'Microsoft.Web/sites@2022-03-01' = {
   properties: {
     serverFarmId: appServicePlanId
     siteConfig: {
-      linuxFxVersion: linuxFxVersion
+      // linuxFxVersion: linuxFxVersion
       alwaysOn: alwaysOn
       ftpsState: ftpsState
       minTlsVersion: '1.2'
