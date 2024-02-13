@@ -10,6 +10,7 @@ param appSettings object = {}
 module web '../core/host/appservice.bicep' = {
   name: '${name}-deployment'
   params: {
+    linuxFxVersion:''
     name: name
     location: location
     appCommandLine: appCommandLine
