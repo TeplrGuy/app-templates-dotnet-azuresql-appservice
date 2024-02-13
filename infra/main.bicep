@@ -74,7 +74,7 @@ module api './app/api.bicep' = {
     location: location
     tags: tags
     applicationInsightsName: monitoring.outputs.applicationInsightsName
-    windowsAppServicePlanId: windowsaAppServicePlan.outputs.id
+    windowsAppServicePlanId: windowsAppServicePlan.outputs.id
     keyVaultName: keyVault.outputs.name
     appSettings: {
       AZURE_SQL_CONNECTION_STRING_KEY: sqlServer.outputs.connectionStringKey
@@ -121,7 +121,7 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
   }
 }
 // Create an App Service Plan to group applications under the same payment plan and SKU
-module windowsaAppServicePlan './core/host/windowsAppserviceplan.bicep' = {
+module windowsAppServicePlan './core/host/windowsAppserviceplan.bicep' = {
   name: 'windowsappserviceplan'
   scope: rg
   params: {
