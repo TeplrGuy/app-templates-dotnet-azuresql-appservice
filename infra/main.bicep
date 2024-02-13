@@ -121,7 +121,7 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
   }
 }
 // Create an App Service Plan to group applications under the same payment plan and SKU
-module windowsAppServicePlan './core/host/windowsAppserviceplan.bicep' = {
+module windowsAppServicePlan './core/host/windowsappserviceplan.bicep' = {
   name: 'windowsappserviceplan'
   scope: rg
   params: {
