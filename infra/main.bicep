@@ -74,7 +74,7 @@ module api './app/api.bicep' = {
     location: location
     tags: tags
     applicationInsightsName: monitoring.outputs.applicationInsightsName
-    appServicePlanId: appServicePlan.outputs.id2
+    appServicePlanId: appServicePlan2.outputs.id
     keyVaultName: keyVault.outputs.name
     appSettings: {
       AZURE_SQL_CONNECTION_STRING_KEY: sqlServer.outputs.connectionStringKey
@@ -128,6 +128,8 @@ module appServicePlan2 './core/host/appserviceplan.bicep' = {
     name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
     location: location
     tags: tags
+    kind: 'app'
+    reserved: false
     sku: {
       name: 'B2'
     }
