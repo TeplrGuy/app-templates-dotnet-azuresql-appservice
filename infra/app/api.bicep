@@ -12,6 +12,7 @@ param serviceName string = 'api'
 module api '../core/host/appservice.bicep' = {
   name: '${name}-app-module'
   params: {
+    windowsFxVersion:''
     name: name
     location: location
     tags: union(tags, { 'azd-service-name': serviceName })
@@ -21,8 +22,8 @@ module api '../core/host/appservice.bicep' = {
     appServicePlanId: appServicePlanId
     appSettings: appSettings
     keyVaultName: keyVaultName
-    runtimeName: 'dotnetcore'
-    runtimeVersion: '6.0'
+    runtimeName: ''
+    runtimeVersion: ''
     scmDoBuildDuringDeployment: false
   }
 }
