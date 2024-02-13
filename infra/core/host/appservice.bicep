@@ -17,7 +17,7 @@ param runtimeNameAndVersion string = '${runtimeName}|${runtimeVersion}'
 param runtimeVersion string
 
 // Microsoft.Web/sites Properties
-param kind string = 'windows'
+param kind string = ''
 
 // Microsoft.Web/sites/config
 param allowedOrigins array = []
