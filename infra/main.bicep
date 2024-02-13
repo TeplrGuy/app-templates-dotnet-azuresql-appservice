@@ -118,9 +118,7 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
     sku: {
       name: 'B2'
     }
-    kind: 'windows'
   }
-  
 }
 
 // Store secrets in a keyvault
