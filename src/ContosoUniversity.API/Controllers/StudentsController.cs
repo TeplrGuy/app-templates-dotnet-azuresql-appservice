@@ -14,6 +14,7 @@ namespace ContosoUniversity.API.Controllers
     {
         private readonly ContosoUniversityAPIContext _context;
 
+
         public StudentsController(ContosoUniversityAPIContext context)
         {
             _context = context;
@@ -56,7 +57,7 @@ namespace ContosoUniversity.API.Controllers
                 Pages = totalPages,
                 CurrentPage = pageNumber + 1
             };
-
+            Fibonacci(pageNumber);
             return Ok(result);
             
         }
@@ -69,14 +70,32 @@ namespace ContosoUniversity.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+ 
+            var students = await Task.Run(() =>
+            {
+                // Simulate high CPU usage within LINQ query
+                var query = _context.Student
+                    .Include(s => s.StudentCourse)
+                    .ThenInclude(s => s.Course)
+                    .AsNoTracking()
+                    .Where(s => EF.Functions.Like(s.FirstName, name + "%") || EF.Functions.Like(s.LastName, name + "%"));
 
-            var students = await _context.Student
-                .Include(s => s.StudentCourse)
-                .ThenInclude(s => s.Course)
-                .AsNoTracking()
-                .Where(s => EF.Functions.Like(s.FirstName, name+"%") || EF.Functions.Like(s.LastName, name + "%"))
-                .ToListAsync();
-            
+                // Artificially inflate computational complexity
+                foreach (var student in query)
+                {
+                    // Introduce CPU-intensive operation
+                    for (int i = 0; i < 10000; i++)
+                    {
+                        Fibonacci(i); // Creating a large string and should also increase memory.
+                    }
+                }
+
+                // Materialize the query to a list to execute it
+               var result = query.ToList();
+                
+                return result;
+             });
+
             if (students == null)
             {
                 return NotFound();
@@ -101,6 +120,16 @@ namespace ContosoUniversity.API.Controllers
             };
 
             return Ok(result);
+        }
+
+
+        // Function to perform CPU-intensive operation
+        int Fibonacci(int n)
+        {
+            if (n <= 1)
+                return n;
+            else
+                return Fibonacci(n - 1) + Fibonacci(n - 2);
         }
 
         // GET: api/Students/5
